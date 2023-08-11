@@ -3,23 +3,23 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Job_hub.API", "Job_hub.API\Job_hub.API.csproj", "{0F524EE5-F064-463F-8416-2CC6A2B410F1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Job_hub.API", "Job_hub.API\Job_hub.API.csproj", "{0F524EE5-F064-463F-8416-2CC6A2B410F1}"
+	ProjectSection(ProjectDependencies) = postProject
+		{02B5F885-24EC-4F1B-A30B-D00FC54AE62A} = {02B5F885-24EC-4F1B-A30B-D00FC54AE62A}
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Job_hub.Contracts", "Job_hub.Contracts\Job_hub.Contracts.csproj", "{A83FCF20-D14D-4B67-9B3F-8ED69B2B066D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Job_hub.Contracts", "Job_hub.Contracts\Job_hub.Contracts.csproj", "{A83FCF20-D14D-4B67-9B3F-8ED69B2B066D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Job_hub.Infrastructure", "Job_hub.Infrastructure\Job_hub.Infrastructure.csproj", "{8BA36371-19B8-429D-B8FC-E9CD3C9C213C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Job_hub.Infrastructure", "Job_hub.Infrastructure\Job_hub.Infrastructure.csproj", "{8BA36371-19B8-429D-B8FC-E9CD3C9C213C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Job_hub.Application", "Job_hub.Application\Job_hub.Application.csproj", "{02B5F885-24EC-4F1B-A30B-D00FC54AE62A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Job_hub.Application", "Job_hub.Application\Job_hub.Application.csproj", "{02B5F885-24EC-4F1B-A30B-D00FC54AE62A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Job_hub.Domain", "Job_hub.Domain\Job_hub.Domain.csproj", "{A090265E-7764-4A1D-929C-51F89CD0E13D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Job_hub.Domain", "Job_hub.Domain\Job_hub.Domain.csproj", "{A090265E-7764-4A1D-929C-51F89CD0E13D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{0F524EE5-F064-463F-8416-2CC6A2B410F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -42,5 +42,11 @@ Global
 		{A090265E-7764-4A1D-929C-51F89CD0E13D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A090265E-7764-4A1D-929C-51F89CD0E13D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A090265E-7764-4A1D-929C-51F89CD0E13D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AEBF748C-F18F-483F-A6D2-0F5B2A6ED617}
 	EndGlobalSection
 EndGlobal
