@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import { Hero } from '../Hero/Hero';
 import { Navbar } from '../Navbar/Navbar';
 import { styled } from 'styled-components';
-import axios from 'axios'
+import './select.css'
 const CreateJobWrapper = styled.div`
     display: flex;
     flex-direction: column;
@@ -40,7 +40,8 @@ const Button = styled.button`
     background-color: #4348DB;
     color: #fff;
     border-radius: 7px;
-    border: none;`;
+    border: none;
+    `;
 export const Create = () => {
     const [formData, setFormData] = useState({
         job_name: '',
@@ -171,14 +172,19 @@ export const Create = () => {
                     <Input type="text" name="salary" placeholder='$50k-$90k' onChange={handleInputChange} />
                 </Label>
                 <Label>
-                    {/*// TODO: 
-
-                        select / option -> enum
-                    */}
                     <p>
                         Typ stanowiska
                     </p>
-                    <Input type="text" name="jobCategory" placeholder='Staż' onChange={handleInputChange} />
+                    <select>
+                        <option>-- Wybierz --</option>
+                        <option value={"Intership"}>Intership</option>
+                        <option value={"Designer"}>Designer</option>
+                        <option value={"Marketer"}>Marketer</option>
+                        <option value={"FullTime"}>FullTime</option>
+                        <option value={"Engineering"}>Engineering</option>
+                        <option value={"Other"}>Other</option>
+                    </select>
+                            {/* <Input type="text" name="jobCategory" placeholder='Staż' onChange={handleInputChange} /> */}
                 </Label>
                 <Label>
                     <p>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import logo from '../assets/img/logo.svg';
 import arrow from '../assets/img/arrow.svg';
 import hamburger from '../assets/img/hamburger.svg';
@@ -29,25 +29,31 @@ const Menu = styled.ul`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 100%;
+    width: fit-content;
     gap: 1rem;
     background-color: #fff;
     list-style: none;
     transition: all .3s ease-in;
-    transform: translateX(0%);
-
-    @media (min-width: 768px) {
-        flex-direction: row;
-        position: relative;
-        width: fit-content;
-        transform: translateX(0);
+    z-index: 999;
+    li {
+        margin: 0 .5rem;
     }
-    ${({ isActive }) =>
-    isActive &&
-    css`
-      transform: translateX(100%);
-    `}
+    @media (max-width: 767px) {
+        width: 100%;
+        ${({ isActive }) =>
+            isActive &&
+            css`
+                transform: translateX(100%);
+            `}
+    }
+    
+    @media (min-width: 768px) {
+        position: static;
+        flex-direction: row;
+        gap: 0;
+    }
 `;
+
 const Button = styled.button`
     cursor: pointer;
     padding: 1rem;
@@ -64,15 +70,18 @@ const NavbarLink = styled.a`
     color: #000;
     text-decoration: none;
 `;
+
 const Hamburger = styled.img`
     width: 48px;
     cursor: pointer;
-  @media (min-width: 768px) {
-    display: none;
-  }
+    
+    @media (min-width: 768px) {
+        display: none;
+    }
 `;
+
 export const Navbar = () => {
-    const [isActive, setIsActive] = useState(false);
+    const [isActive, setIsActive] = useState(true);
 
     const handleClick = () => {
       setIsActive(!isActive);
@@ -82,7 +91,7 @@ export const Navbar = () => {
   return (
     <Nav>
         <img as={Link} src={logo} to="/"  alt='Logo'/>
-        <Menu style={{ transform: isActive ? 'translateX(100%)' : 'translateX(0%)' }}>
+        <Menu isActive={isActive}>
 
             <li className='active'>
                 <NavbarLink as={Link} activeStyle={{ color:'#5754a8' }} to='/'>

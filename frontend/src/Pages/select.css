@@ -1,0 +1,39 @@
+select {
+  background-color: #fff;
+  background-image: url(../assets//img//bgImage.svg);
+  background-position: right 10px center;
+  background-repeat: no-repeat;
+  background-size: auto 80%;
+  border-radius: 7px;
+  border: 1px solid #000;
+  color: #000;
+  padding: 16px 30px 16px 10px;
+  outline: none;
+  width: 100%;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+
+select::-ms-expand {
+  display: none;
+}
+@-moz-document url-prefix() {
+  select {
+    color: #000;
+    text-shadow: 0 0 0 #ffffff;
+  }
+}
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 300;
+  src: url(https://fonts.gstatic.com/s/lato/v24/S6u9w4BMUTPHh7USSwiPHA.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/lato/v24/S6uyw4BMUTPHjx4wWw.ttf) format('truetype');
+}

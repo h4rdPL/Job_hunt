@@ -8,6 +8,7 @@ const Wrapper = styled.div`
     justify-content: center;
     align-items: center;
     background-color: #fff;
+    position: relative;
 `;
 const Accent = styled.span`
     color: #4348DB;
@@ -25,8 +26,9 @@ const Heading = styled.h1`
     @media (min-width: 768px) {
         font-size: 2rem;
     }
-
 `;
+
+
 export const Hero = () => {
   return (
     <Wrapper>

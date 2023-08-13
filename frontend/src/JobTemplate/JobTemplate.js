@@ -5,6 +5,11 @@ import location from "../assets/img/location.svg"
 import money from "../assets/img/money.svg"
 import share from "../assets/img/share.svg"
 import copy from "../assets/img/copy.svg"
+import logo1 from "../assets/img/CompanyLogo/logo1.svg"
+import logo2 from "../assets/img/CompanyLogo/logo2.svg"
+import logo3 from "../assets/img/CompanyLogo/logo3.svg"
+import logo4 from "../assets/img/CompanyLogo/logo4.svg"
+
 import { styled } from 'styled-components'
 const Wrapper = styled.div`
     margin: 0 auto;
@@ -200,7 +205,29 @@ const Test = styled.div`
     padding: 2rem;
     border-radius: 7px;
 `;
+const LogoWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem 0;
+    @media (min-width: 768px) {
+        flex-direction: row;
+    }
+`;
+const LogoParagraph = styled.p`
+    color: #aaa;
+`; 
 
+const SubHeading = styled.h2`
+    text-align: center;
+    text-transform: uppercase;
+    color:#4348DB;
+    font-weight: lighter;
+    letter-spacing: 6px;
+    margin-top: 2rem;
+`;
 
 export const JobTemplate = ({jobCategory}) => {
     const [openOfferId, setOpenOfferId] = useState(false);
@@ -230,8 +257,16 @@ export const JobTemplate = ({jobCategory}) => {
     console.log(jobOffers)
   return (
     <Wrapper>
-            {
-            jobOffers ? 
+        <LogoWrapper>
+            <LogoParagraph>
+                find jobs from
+            </LogoParagraph>
+            <img src={logo1} alt='logo1'/>
+            <img src={logo2} alt='logo2'/>
+            <img src={logo3} alt='logo3'/>
+            <img src={logo4} alt='logo4'/>
+        </LogoWrapper>
+        {jobOffers.length > 0 ? (
             jobOffers.map(offer => (
                                         <Test key={offer.id}>
                                             <JobfferWrapper>
@@ -332,13 +367,10 @@ export const JobTemplate = ({jobCategory}) => {
                                                     </OpinionWrapper>
                                             </More>
                                         </Test>
-                                ))
-                            : (
-                                <h1>
-                                "Brak ofert"
-                                </h1>
-                            )
-                            }
+                            ))
+                            ) : (
+                                <SubHeading>No job offers available</SubHeading>
+                            )}
     </Wrapper>
   )
 }
