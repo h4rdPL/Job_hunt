@@ -229,12 +229,22 @@ const SubHeading = styled.h2`
     margin-top: 2rem;
 `;
 
+const LoadMoreParagraph = styled.p`
+    text-align: center;
+    color: #AAA;
+    font-weight: 500;
+    cursor: pointer;
+`;
+
 export const JobTemplate = ({jobCategory}) => {
     const [openOfferId, setOpenOfferId] = useState(false);
     const [jobOffers, setJobOffers] = useState([]);
+    const [visibleJobCount, setVisibleJobCount] = useState(4);
+
     const handleButtonClick = (offerId) => {
         setOpenOfferId(prevId => (prevId === offerId) ? false : offerId);
-    };    
+    };
+    
     useEffect(() => {
       fetch("https://localhost:7274/api/Job/getJob")
         .then(response => response.json())
@@ -254,7 +264,13 @@ export const JobTemplate = ({jobCategory}) => {
           console.error('Error fetching data:', error);
         });
     }, [jobCategory]); // Adding jobCategory as a dependency to the effect
-    console.log(jobOffers)
+
+
+    const handleLoadMore = () => {
+        setVisibleJobCount(prevCount => prevCount + 4); // Increase by 4 each time
+    };
+
+    
   return (
     <Wrapper>
         <LogoWrapper>
@@ -267,8 +283,8 @@ export const JobTemplate = ({jobCategory}) => {
             <img src={logo4} alt='logo4'/>
         </LogoWrapper>
         {jobOffers.length > 0 ? (
-            jobOffers.map(offer => (
-                                        <Test key={offer.id}>
+                jobOffers.slice(0, visibleJobCount).map(offer => (
+                <Test key={offer.id}>
                                             <JobfferWrapper>
                                                 <ImageWrapper>
                                                     <Image>
@@ -371,6 +387,12 @@ export const JobTemplate = ({jobCategory}) => {
                             ) : (
                                 <SubHeading>No job offers available</SubHeading>
                             )}
+                            {jobOffers.length > visibleJobCount && (
+                                <LoadMoreParagraph onClick={handleLoadMore}>
+                                    Load more job posts
+                                </LoadMoreParagraph>
+                            )}
     </Wrapper>
+
   )
 }
