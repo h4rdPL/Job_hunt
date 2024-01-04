@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import logo from '../assets/img/logo.svg';
 import arrow from '../assets/img/arrow.svg';
 import hamburger from '../assets/img/hamburger.svg';
 import { styled, css } from 'styled-components';
-import { Link } from "react-router-dom";
+import { Link, useLocation } from 'react-router-dom';
 
 const Nav = styled.nav`
     display: flex;
@@ -81,56 +81,60 @@ const Hamburger = styled.img`
 `;
 
 export const Navbar = () => {
-    const [isActive, setIsActive] = useState(true);
+        const [isActive, setIsActive] = useState(true);
+    
+        const location = useLocation();
 
     const handleClick = () => {
       setIsActive(!isActive);
-    console.log(isActive)
-
     };
+
+    useEffect(() => {
+        setIsActive(false); 
+      }, [location]);
+    
   return (
     <Nav>
         <img as={Link} src={logo} to="/"  alt='Logo'/>
         <Menu isActive={isActive}>
-
-            <li className='active'>
-                <NavbarLink as={Link} activeStyle={{ color:'#5754a8' }} to='/'>
-                    All Jobs
+            <li>
+                <NavbarLink as={Link} to="/" className={location.pathname === '/' ? 'active' : ''}>
+                All Jobs
                 </NavbarLink>
             </li>
             <li>
-                <NavbarLink as={Link} to='/Internship'>
-                    Internship
+                <NavbarLink as={Link} to="/Internship" className={location.pathname === '/Internship' ? 'active' : ''}>
+                Internship
                 </NavbarLink>
             </li>
             <li>
-                <NavbarLink as={Link} to='/Fulltime'>
-                    Fulltime
+                <NavbarLink as={Link} to="/Fulltime" className={location.pathname === '/Fulltime' ? 'active' : ''}>
+                Fulltime
                 </NavbarLink>
             </li>
             <li>
-                <NavbarLink as={Link} to='/Engineering'>
-                    Engineering                
+                <NavbarLink as={Link} to="/Engineering" className={location.pathname === '/Engineering' ? 'active' : ''}>
+                Engineering
                 </NavbarLink>
             </li>
             <li>
-                <NavbarLink as={Link} to='/Marketer'>
-                    Marketer                
+                <NavbarLink as={Link} to="/Marketer" className={location.pathname === '/Marketer' ? 'active' : ''}>
+                Marketer
                 </NavbarLink>
             </li>
             <li>
-                <NavbarLink as={Link} to='/Designer'>
-                    Designer                
+                <NavbarLink as={Link} to="/Designer" className={location.pathname === '/Designer' ? 'active' : ''}>
+                Designer
                 </NavbarLink>
             </li>
             <li>
-                <NavbarLink as={Link} to='/Other'>
-                    Other               
+                <NavbarLink as={Link} to="/Other" className={location.pathname === '/Other' ? 'active' : ''}>
+                Other
                 </NavbarLink>
             </li>
             <Button as={Link} to="/Create">
                 Submit 
-                <img src={arrow} />
+                <img src={arrow} alt="Icon" />
             </Button>
         </Menu>
         <Hamburger onClick={handleClick} src={hamburger} />

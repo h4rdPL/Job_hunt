@@ -263,11 +263,10 @@ export const JobTemplate = ({jobCategory}) => {
         .catch(error => {
           console.error('Error fetching data:', error);
         });
-    }, [jobCategory]); // Adding jobCategory as a dependency to the effect
-
+    }, [jobCategory]); 
 
     const handleLoadMore = () => {
-        setVisibleJobCount(prevCount => prevCount + 4); // Increase by 4 each time
+        setVisibleJobCount(prevCount => prevCount + 4); 
     };
 
     

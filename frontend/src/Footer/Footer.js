@@ -70,94 +70,95 @@ const FooterMenuList = styled.ul`
     flex-direction: column;
     gap: .75rem;
 `;
+
 export const Footer = () => {
   return (
     <FooterWrapper>
-        <InnerWrapper>
-            <LogoWrapper>
-                <img src={logo} alt='logo' />
-                <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis dolor sit amet lorem. 
-                </p>
-            </LogoWrapper>
-            <div>
-                <FooterHeading>
-                    Menu Item
-                </FooterHeading>
-                <FooterMenuList>
-                    <li>
-                        Menu link
-                    </li>
-                    <li>
-                        Another link
-                    </li>
-                    <li>
-                        Third menu 
-                    </li>
-                    <li>
-                        Fourth Link
-                    </li>
-                </FooterMenuList>
-            </div>
-            <div>
-                <FooterHeading>
-                    Menu Item
-                </FooterHeading>
-                <FooterMenuList>
-                    <li>
-                        Menu link
-                    </li>
-                    <li>
-                        Another link
-                    </li>
-                    <li>
-                        Third menu 
-                    </li>
-                    <li>
-                        Fourth Link
-                    </li>
-                </FooterMenuList>
-            </div>
-            <div>
-                <FooterHeading>
-                    Menu Item
-                </FooterHeading>
-                <FooterMenuList>
-                    <li>
-                        Menu link
-                    </li>
-                    <li>
-                        Another link
-                    </li>
-                    <li>
-                        Third menu 
-                    </li>
-                    <li>
-                        Fourth Link
-                    </li>
-                </FooterMenuList>
-            </div>
-        </InnerWrapper>
-        <CopyrightWrapper>
-            <p>
-            © 2023 cryptojob. All rights reserved
-            </p>
-            <ul>
-                <li>
-                    <img src={twitter} alt='twitter' />
-                </li>
-                <li>
-                    <img src={facebook} alt='facebook' />
-                </li>
-                <li>
-                    <img src={discord} alt='discord' />
-                </li>
-                <li>
-                    <img src={dm} alt='dm' />
-                </li>
-            </ul>
-        </CopyrightWrapper>
-
-    </FooterWrapper>
-  )
-}
+    <InnerWrapper>
+      <LogoWrapper>
+        <img src={logo} alt='logo' />
+        <p>
+          Welcome to the Job job_hunt website! Here, you will find the latest job offer! Join our community, and apply today!
+        </p>
+      </LogoWrapper>
+      <div>
+        <FooterHeading>
+          Discover
+        </FooterHeading>
+        <FooterMenuList>
+          <li>
+            <a>Home</a>
+          </li>
+          <li>
+            <a>Blog</a>
+          </li>
+          <li>
+            <a>Discussion Forum</a>
+          </li>
+          <li>
+            <a>Contact</a>
+          </li>
+        </FooterMenuList>
+      </div>
+      <div>
+        <FooterHeading>
+          Resources
+        </FooterHeading>
+        <FooterMenuList>
+          <li>
+            <a>Guides</a>
+          </li>
+          <li>
+            <a>Market Analysis</a>
+          </li>
+          <li>
+            <a>Online Courses</a>
+          </li>
+          <li>
+            <a>Upcoming Events</a>
+          </li>
+        </FooterMenuList>
+      </div>
+      <div>
+        <FooterHeading>
+          Community
+        </FooterHeading>
+        <FooterMenuList>
+          <li>
+            <a>Forum</a>
+          </li>
+          <li>
+            <a>Discord</a>
+          </li>
+          <li>
+            <a>Blog Community</a>
+          </li>
+          <li>
+            <a>Our Partners</a>
+          </li>
+        </FooterMenuList>
+      </div>
+    </InnerWrapper>
+    <CopyrightWrapper>
+      <p>
+        © 2023 job_hunt. All rights reserved
+      </p>
+      <ul>
+        <li>
+          <img src={twitter} alt='twitter' />
+        </li>
+        <li>
+          <img src={facebook} alt='facebook' />
+        </li>
+        <li>
+          <img src={discord} alt='discord' />
+        </li>
+        <li>
+          <img src={dm} alt='dm' />
+        </li>
+      </ul>
+    </CopyrightWrapper>
+  </FooterWrapper>
+  
+  );
+};

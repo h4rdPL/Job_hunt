@@ -3,6 +3,9 @@ import { Hero } from '../Hero/Hero';
 import { Navbar } from '../Navbar/Navbar';
 import { styled } from 'styled-components';
 import './select.css'
+import { useNavigate } from "react-router-dom";
+import { Footer } from '../Footer/Footer';
+
 const CreateJobWrapper = styled.div`
     display: flex;
     flex-direction: column;
@@ -39,87 +42,141 @@ const Button = styled.button`
     padding: 1rem;
     background-color: #4348DB;
     color: #fff;
-    border-radius: 7px;
     border: none;
     `;
+
+const InputField = styled.input`
+    display: none;    
+`;
+
+const CustomInputLabel = styled.label`
+    display: flex;
+    align-self: flex-start;
+    width: fit-content;
+    padding: 12px;
+    background-color: #4348DB;
+    color: #fff;
+    text-align: center;
+    border: 1px solid #007bff;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+    margin-top: .5rem;
+
+`;
+const FileNameDisplay = styled.div`
+  margin-top: 10px;
+`;
+
+const ErrorParagraph = styled.span`
+    color: red;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+`;
+
 export const Create = () => {
-    const [formData, setFormData] = useState({
+    const navigate = useNavigate();
+    const [selectedFile, setSelectedFile] = useState(null);
+    const [error, setError] = useState({
         job_name: '',
         companyName: '',
         salary: '',
         location: '',
         idealCandidate: '',
         jobType: '',
-        jobCategory: 'Fulltime',
-        tag: [{ name: '' }],
-        responsabilities: [{ name: '' }],
-      });
-    
-      const handleInputChange = (event) => {
-        const { name, value } = event.target;
-        
-        if (name === 'tag') {
-            const tagsArray = value.split(',').map(tag => ({ name: tag.trim() }));
-            setFormData(prevData => ({
-                ...prevData,
-                tag: tagsArray,
-            }));
-        } else if (name === 'responsabilities') {
-            const responsabilitiesArray = value.split(',').map(responsability => ({ name: responsability.trim() }));
-            setFormData(prevData => ({
-                ...prevData,
-                responsabilities: responsabilitiesArray,
-            }));
-        } else {
-            setFormData(prevData => ({
-                ...prevData,
-                [name]: value,
-            }));
-        }
-    };
-    
-      const handleSubmit = async (event) => {
-        event.preventDefault();
-      
-        try {
-          const tagArray = Array.isArray(formData.tag) ? formData.tag : [{ name: '' }];
-          const responsabilitiesArray = Array.isArray(formData.responsabilities) ? formData.responsabilities : [{ name: '' }];
-      
-          const response = await fetch("https://localhost:7274/api/Job/create", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              ...formData,
-              tag: tagArray.map(tag => ({ name: tag.name })),
-              responsabilities: responsabilitiesArray.map(responsability => ({ name: responsability.name }))
-            }),
-          });
-          console.log(formData)
-          if (response.ok) {
-            // Success: Clear form or perform other actions
-            console.log('Job offer created successfully');
-            setFormData({
-              job_name: '',
-              companyName: '',
-              salary: '',
-              location: '',
-              idealCandidate: '',
-              jobType: '',
-              jobCategory: 'Fulltime',
-              tag: [{ name: '' }],
-              responsabilities: [{ name: '' }],
-            });
-          } else {
-            // Error: Display error message or handle as needed
-            console.error('Error creating job offer');
-          }
-        } catch (error) {
-          console.error('Error creating job offer:', error);
-        }
+        jobCategory: '',
+        tag: '',
+        responsabilities: ''
+    });
+    const [formData, setFormData] = useState({
+        companyName: '',
+      job_name: '',
+      salary: '',
+      location: '',
+      idealCandidate: '',
+      jobType: '',
+      jobCategory: '',
+      tag: [{ name: '' }],
+      responsabilities: [{ name: '' }],
+    });
+
+
+    const setFormError = (setError, fieldName, errorMessage) => {
+        setError(prev => ({
+          ...prev,
+          [fieldName]: errorMessage,
+        }));
       };
-      
+  
+    const handleFileChange = (event) => {
+      const file = event.target.files[0];
+      setSelectedFile(file);
+    };
+  
+    const handleInputChange = (event) => {
+      const { name, value } = event.target;
+  
+      if (name === 'tag' || name === 'responsabilities') {
+        const arrayValue = value.split(',').map((item) => ({ name: item.trim() }));
+        setFormData((prevData) => ({
+          ...prevData,
+          [name]: arrayValue,
+        }));
+      } else {
+        setFormData((prevData) => ({
+          ...prevData,
+          [name]: value,
+        }));
+      } 
+    };
+  
+    const handleSubmit = async (event) => {
+      event.preventDefault();
+  
+      try {
+        const tagArray = Array.isArray(formData.tag) ? formData.tag : [{ name: '' }];
+        const responsabilitiesArray = Array.isArray(formData.responsabilities) ? formData.responsabilities : [{ name: '' }];
+  
+        const response = await fetch('https://localhost:7274/api/Job/create', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            ...formData,
+            tag: tagArray.map((tag) => ({ name: tag.name })),
+            responsabilities: responsabilitiesArray.map((responsability) => ({ name: responsability.name })),
+          }),
+        });
+        if (!formData.job_name) {
+            setFormError(setError, 'job_name', 'To pole nie może być puste.');
+          } else if (!formData.companyName) {
+            setFormError(setError, 'companyName', 'Wpisz nazwę firmy!');
+          } else if (!formData.idealCandidate) {
+            setFormError(setError, 'idealCandidate', 'To pole nie może być puste.');
+          } else if (!formData.jobCategory) {
+            setFormError(setError, 'jobCategory', 'To pole nie może być puste.');
+          } else if (response.ok){
+                setFormData({
+                job_name: '',
+                companyName: '',
+                  salary: '',
+                  location: '',
+                  idealCandidate: '',
+                  jobType: '',
+                  jobCategory: 'Fulltime',
+                  tag: [{ name: '' }],
+                  responsabilities: [{ name: '' }],
+                });
+        
+                setSelectedFile(null);
+                navigate('/');
+          }
+
+      } catch (error) {
+        console.error('Error creating job offer:', error);
+      }
+    };
+  
   return (
     <>
     <Navbar />
@@ -140,51 +197,64 @@ export const Create = () => {
                     name='companyName'
                     onChange={handleInputChange} />
                 </Label>
-                <Label>
-                    {/*// TODO: 
-                    
-                        select / option -> enum
-
-                    */}
+                <ErrorParagraph>
+                    {error.companyName && error.companyName}                    
+                    </ErrorParagraph>                
+                    <Label>
                     <p>
                         Stanowisko
                     </p>
                     <Input type="text" placeholder='Designer' name='jobType' onChange={handleInputChange} />
+                    <ErrorParagraph>
+                    {error.job_name && error.job_name}                    
+                    </ErrorParagraph>
+
                 </Label>
                 <Label>
                     <p>
                         Nazwa pracy
                     </p>
                     <Input type="text" name="job_name" placeholder='UI/UX Designer' onChange={handleInputChange} />
+                    <ErrorParagraph>
+                        {error.companyName && error.companyName}
+                    </ErrorParagraph>
                 </Label>
                 <Label>
                     <p>
                         Lokalizacja
                     </p>
                     <Input type="text" name="location" placeholder='Remote' onChange={handleInputChange} />
+                    <ErrorParagraph>
+                    {error.location && error.location}                    
+                    </ErrorParagraph>
                 </Label>                
-
-
                 <Label>
                     <p>
                         Widełki
                     </p>
                     <Input type="text" name="salary" placeholder='$50k-$90k' onChange={handleInputChange} />
+                    {error.salary && error.salary}
+
                 </Label>
                 <Label>
                     <p>
                         Typ stanowiska
                     </p>
-                    <select>
+                    <select
+                    name="jobCategory"
+                    value={formData.jobCategory}
+                    onChange={handleInputChange}
+                    >                        
                         <option>-- Wybierz --</option>
-                        <option value={"Intership"}>Intership</option>
+                        <option value={"Internship"}>Internship</option>
                         <option value={"Designer"}>Designer</option>
                         <option value={"Marketer"}>Marketer</option>
                         <option value={"FullTime"}>FullTime</option>
                         <option value={"Engineering"}>Engineering</option>
                         <option value={"Other"}>Other</option>
                     </select>
-                            {/* <Input type="text" name="jobCategory" placeholder='Staż' onChange={handleInputChange} /> */}
+                    {error.jobCategory && error.jobCategory}
+
                 </Label>
                 <Label>
                     <p>
@@ -198,27 +268,38 @@ export const Create = () => {
                         Obowiązki (Dodaj po przecinku)
                     </p>
                     <Input type="text" name="responsabilities" placeholder='Projektowanie, mockupy, kontakt z klientem' onChange={handleInputChange} />
+                    
                 </Label>
-
+                {error.responsabilities && error.responsabilities}
                 <Label>
                     <p>
                         Tagi (Dodaj po przecinku)
                     </p>
                     <Input type="text" name="tag" placeholder='User Interface Design, Experience Design, Contract Based Work' onChange={handleInputChange} />
+                    <ErrorParagraph>
+                        {error.tag && error.tag}
+                    </ErrorParagraph>
                 </Label>
                 <Label>
                     <p>
                         Opis idealnego kandydata
                     </p>
                     <Input name="idealCandidate" type="text"  onChange={handleInputChange} placeholder='Nasz idealny kandydat...' />
+                    {error.idealCandidate && error.idealCandidate}
                 </Label>
-                <Button type="submit">
-                    Dodaj ofertę    
-                </Button>
-
+                    <InputField type="file" id="fileInput" onChange={handleFileChange} />
+                    <CustomInputLabel htmlFor="fileInput">Logo firmy</CustomInputLabel>
+                    {selectedFile && (
+                        <FileNameDisplay>
+                            Wybrane zdjęcie: {selectedFile.name}
+                        </FileNameDisplay>
+                    )}
+                    <Button type="submit">
+                        Dodaj ofertę    
+                    </Button>
             </Form>
         </CreateJobWrapper>
-
+        <Footer/>
     </>
   )
 }
