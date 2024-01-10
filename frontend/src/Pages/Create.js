@@ -141,6 +141,7 @@ export const Create = () => {
       !formData.jobCategory ||
       !formData.location ||
       !formData.job_about ||
+      !formData.jobType ||
       !formData.responsabilities.every(
         (responsibility) => responsibility.name
       ) ||
@@ -167,6 +168,7 @@ export const Create = () => {
         tag: !formData.tag.every((tag) => tag.name)
           ? "Wpisz tagi dla oferty pracy."
           : "",
+        jobType: !formData.jobType ? "Podaj typ pracy" : "",
       });
       return;
     }
@@ -242,7 +244,7 @@ export const Create = () => {
               name="jobType"
               onChange={handleInputChange}
             />
-            <ErrorParagraph>{error.job_name && error.job_name}</ErrorParagraph>
+            <ErrorParagraph>{error.jobType && error.jobType}</ErrorParagraph>
           </Label>
           <Label>
             <p>Nazwa pracy</p>
@@ -252,9 +254,7 @@ export const Create = () => {
               placeholder="UI/UX Designer"
               onChange={handleInputChange}
             />
-            <ErrorParagraph>
-              {error.companyName && error.companyName}
-            </ErrorParagraph>
+            <ErrorParagraph>{error.job_name && error.job_name}</ErrorParagraph>
           </Label>
           <Label>
             <p>Lokalizacja</p>
