@@ -3,9 +3,7 @@ using Job_hub.Domain.Data.Enum;
 using Job_hub.Domain.DTO;
 using Job_hub.Domain.Entities;
 using Job_hub.Infrastructure.Context;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Razor.TagHelpers;
 using System.Data.Entity;
 using static Job_hub.Domain.Entities.JobOffer;
 
@@ -22,6 +20,7 @@ namespace Job_hub.API.Controllers
             _jobService = jobService;
             _context = context;
         }
+
 
         [HttpPost("create")]
         public async Task<ActionResult<List<JobOffer>>> Create(JobDTO jobOffer)
@@ -52,12 +51,15 @@ namespace Job_hub.API.Controllers
                 .Include(j => j.Tags)
                 .ToList());
         }
+
+
         [HttpGet("getJob")]
         public IActionResult GetJobWithRelations()
         {
             var jobOffersWithRelations = _jobService.GetAll();
             return Ok(jobOffersWithRelations);
         }
+
         [HttpGet("getJobByCategory")]
         public List<JobDTO> GetJobByCategory(JobCategory jobCategory)
         {

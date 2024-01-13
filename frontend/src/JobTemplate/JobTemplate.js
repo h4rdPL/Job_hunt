@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 import logo from "../assets/img/CompanyLogo/stellar.svg";
 import verify from "../assets/img/verify.svg";
 import location from "../assets/img/location.svg";
@@ -372,4 +373,8 @@ export const JobTemplate = ({ jobCategory }) => {
       )}
     </Wrapper>
   );
+};
+
+JobTemplate.propTypes = {
+  jobCategory: PropTypes.node,
 };

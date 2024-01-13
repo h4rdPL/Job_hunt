@@ -13,6 +13,7 @@ const CreateJobWrapper = styled.div`
   padding-top: 2rem;
   min-height: 100vh;
 `;
+
 const Form = styled.form`
   display: flex;
   gap: 1rem;
@@ -61,6 +62,7 @@ const CustomInputLabel = styled.label`
   transition: background-color 0.3s ease-in-out;
   margin-top: 0.5rem;
 `;
+
 const FileNameDisplay = styled.div`
   margin-top: 10px;
 `;
