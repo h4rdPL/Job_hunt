@@ -5,6 +5,7 @@ import { styled } from "styled-components";
 import "./select.css";
 import { useNavigate } from "react-router-dom";
 import { Footer } from "../Footer/Footer";
+import InputMask from "react-input-mask";
 
 const CreateJobWrapper = styled.div`
   display: flex;
@@ -91,6 +92,7 @@ export const Create = () => {
   const [formData, setFormData] = useState({
     companyName: "",
     job_name: "",
+    job_about: "",
     salary: "",
     location: "",
     idealCandidate: "",
@@ -210,7 +212,7 @@ export const Create = () => {
           tag: [{ name: "" }],
           responsabilities: [{ name: "" }],
         });
-
+        console.log(error);
         setSelectedFile(null);
         navigate("/");
       }
@@ -268,14 +270,64 @@ export const Create = () => {
             />
             <ErrorParagraph>{error.location && error.location}</ErrorParagraph>
           </Label>
+
           <Label>
-            <p>Widełki</p>
-            <Input
-              type="text"
-              name="salary"
-              placeholder="$50k-$90k"
-              onChange={handleInputChange}
-            />
+            <p>Widełki (na miesiąc)</p>
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <Input
+                as={InputMask}
+                mask="9999 PLN - 9999 PLN"
+                maskChar={null}
+                type="text"
+                name="salary"
+                placeholder="200 - 3000"
+                value={formData.salary}
+                onChange={(e) => {
+                  const sanitizedValue = e.target.value.replace(
+                    /[^0-9$-]/g,
+                    (match, offset, input) => {
+                      if (offset === 0 && match === "-") {
+                        return match;
+                      }
+                      if (offset > 0 && input[offset - 1] === "-") {
+                        return match;
+                      }
+                      return "";
+                    }
+                  );
+
+                  handleInputChange({
+                    target: { name: "salary", value: sanitizedValue },
+                  });
+
+                  if (sanitizedValue.includes("-")) {
+                    const indexOfHyphen = sanitizedValue.indexOf("-");
+                    const cursorPosition = e.target.selectionStart;
+
+                    if (cursorPosition <= indexOfHyphen) {
+                      e.target.setSelectionRange(
+                        indexOfHyphen + 2,
+                        indexOfHyphen + 2
+                      );
+                    }
+                  }
+                }}
+                inputRef={(inputRef) =>
+                  inputRef && inputRef.setAttribute("id", "salaryInput")
+                }
+                onKeyDown={(e) => {
+                  if (
+                    (e.key >= "0" && e.key <= "9") ||
+                    e.key === "Backspace" ||
+                    e.key === "-"
+                  ) {
+                    return true;
+                  } else {
+                    e.preventDefault();
+                  }
+                }}
+              />
+            </div>
             <ErrorParagraph>{error.salary && error.salary}</ErrorParagraph>
           </Label>
           <Label>

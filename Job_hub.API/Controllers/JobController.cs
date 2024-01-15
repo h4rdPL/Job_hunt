@@ -22,6 +22,11 @@ namespace Job_hub.API.Controllers
         }
 
 
+        /// <summary>
+        /// Creates a new job offer.
+        /// </summary>
+        /// <param name="jobOffer">The data transfer object (DTO) representing the job offer.</param>
+        /// <returns>A list of all job offers including the newly created one.</returns>
         [HttpPost("create")]
         public async Task<ActionResult<List<JobOffer>>> Create(JobDTO jobOffer)
         {
@@ -29,6 +34,7 @@ namespace Job_hub.API.Controllers
             {
                 Id = jobOffer.Id,
                 Job_name = jobOffer.Job_name,
+                Job_about = jobOffer.Job_about,
                 CompanyName = jobOffer.CompanyName,
                 JobCategory = jobOffer.JobCategory,
                 Salary = jobOffer.Salary,
@@ -37,13 +43,15 @@ namespace Job_hub.API.Controllers
                 IdealCandidate = jobOffer.IdealCandidate,
             };
 
-            var responsibilities = jobOffer.Responsabilities.Select(r => new Responsibility { Name = r.Name, JobOffer = newJobOffer }).ToList();
+            var responsibilities = jobOffer.Responsabilities
+                .Select(r => new Responsibility { Name = r.Name, JobOffer = newJobOffer }).ToList();
+
             var tags = jobOffer.Tag.Select(r => new Tag { Name = r.Name, JobOffer = newJobOffer }).ToList();
+
             newJobOffer.Responsibilities = responsibilities;
             newJobOffer.Tags = tags;
 
             var jobResult = _context.JobOffers.Add(newJobOffer);
-
             _context.SaveChanges();
 
             return Ok(_context.JobOffers
@@ -52,7 +60,10 @@ namespace Job_hub.API.Controllers
                 .ToList());
         }
 
-
+        /// <summary>
+        /// Retrieves all job offers with their related entities.
+        /// </summary>
+        /// <returns>A response containing all job offers with their related responsibilities and tags.</returns>
         [HttpGet("getJob")]
         public IActionResult GetJobWithRelations()
         {
@@ -60,15 +71,16 @@ namespace Job_hub.API.Controllers
             return Ok(jobOffersWithRelations);
         }
 
+        /// <summary>
+        /// Retrieves job offers based on the specified job category.
+        /// </summary>
+        /// <param name="jobCategory">The category of the job offers to retrieve.</param>
+        /// <returns>A list of job offers matching the specified category.</returns>
         [HttpGet("getJobByCategory")]
         public List<JobDTO> GetJobByCategory(JobCategory jobCategory)
         {
             var jobOfferByCategory = _jobService.GetByCategory(jobCategory);
             return jobOfferByCategory;
         }
-
-
-
-
     }
 }

@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Job_hub.Domain.Data.Enum;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Reflection.Metadata.Ecma335;
-using System.Text;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
-using Job_hub.Domain.Data.Enum;
 
 namespace Job_hub.Domain.Entities
 {
@@ -15,6 +8,7 @@ namespace Job_hub.Domain.Entities
         [Key]
         public int Id { get; set; }
         public string Job_name { get; set; }
+        public string Job_about { get; set; }
         public string CompanyName { get; set; }
         public string Salary { get; set; }
         public string Location { get; set; }

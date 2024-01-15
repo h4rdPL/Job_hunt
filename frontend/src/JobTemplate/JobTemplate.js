@@ -275,6 +275,7 @@ export const JobTemplate = ({ jobCategory }) => {
       {jobOffers.length > 0 ? (
         jobOffers.slice(0, visibleJobCount).map((offer) => (
           <Test key={offer.id}>
+            {console.log(offer)}
             <JobfferWrapper>
               <ImageWrapper>
                 <Image>
@@ -324,11 +325,7 @@ export const JobTemplate = ({ jobCategory }) => {
               <OfferWrapper>
                 <span>
                   <InformationHeader>About the role:</InformationHeader>
-                  <p>
-                    As a freak UX/UI designer you will dedicate your time to
-                    find nice and friendly ways to fulfill the wants and needs
-                    of our users.
-                  </p>
+                  <p>{offer.job_about}</p>
                 </span>
 
                 <span>

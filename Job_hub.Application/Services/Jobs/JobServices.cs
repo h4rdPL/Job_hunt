@@ -49,6 +49,7 @@ namespace Job_hub.Application.Services.Jobs
             {
                 Id = job.Id,
                 Job_name = job.Job_name,
+                Job_about = job.Job_about,
                 CompanyName = job.CompanyName,
                 JobCategory = job.JobCategory,
                 IdealCandidate = job.IdealCandidate,
@@ -76,14 +77,13 @@ namespace Job_hub.Application.Services.Jobs
 
             var jobs = jobOffersWithRelations.Select(job => new JobDTO
             {
-                // Map other properties...
                 Id = job.Id,
                 Job_name = job.Job_name,
                 CompanyName = job.CompanyName,
                 Salary = job.Salary,
                 Location = job.Location,
                 JobType = job.JobType,
-                JobCategory = jobCategory, // Directly assign the enum value
+                JobCategory = jobCategory, 
                 Tag = job.Tags.Select(tag => new TagDTO { Name = tag.Name }).ToList(),
                 Responsabilities = job.Responsibilities.Select(resp => new ResponsabilitiesDTO { Name = resp.Name }).ToList()
             }).ToList();

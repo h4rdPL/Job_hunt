@@ -1,16 +1,11 @@
 ﻿using Job_hub.Domain.Data.Enum;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static Job_hub.Domain.Entities.JobOffer;
 
 namespace Job_hub.Domain.DTO
 {
     public record struct JobDTO(
             int Id,
             string Job_name, 
+            string Job_about,
             string CompanyName,
             string Salary, 
             string Location,

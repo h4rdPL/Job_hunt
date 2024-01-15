@@ -1,10 +1,5 @@
 ﻿using Job_hub.Domain.Entities;
 using Job_hub.Infrastructure.Context;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Job_hub.Infrastructure.Repositories
 {
